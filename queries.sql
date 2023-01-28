@@ -129,13 +129,13 @@ ORDER BY visits.date_of_visit DESC
 LIMIT 1;
 
 -- How many different animals did Stephanie Mendez see?
-SELECT species.name
-FROM visits
-INNER JOIN animals ON visits.animal_id = animals.id
+
+SELECT animals.name
+FROM animals
+INNER JOIN visits ON animals.id = animal_id
 INNER JOIN species ON species.id = animals.species_id
 INNER JOIN vets ON visits.vet_id = vets.id
-WHERE vets.name = 'Stephanie Mendez'
-GROUP BY species.name;
+WHERE vets.name = 'Stephanie Mendez';
 
 -- List all vets and their specialties, including vets with no specialties.
 SELECT vets.name, species.name
@@ -189,3 +189,7 @@ SELECT count(*) as number_of_visits_to_unspecialized_vets
 FROM visits
 LEFT JOIN specializations ON specializations.vet_id = visits.vet_id
 WHERE specializations.species_id IS NULL;
+
+--What specialty should Maisy Smith consider getting? Look for the species she gets the most.--
+ SELECT species.name AS S, COUNT(*)  AS CNT FROM visits  JOIN vets ON visits.vet_id = vets.id  JOIN animals ON visits.animal_id = animals.id  JOIN species ON animals.species_id = species.id  JOIN specializations ON specializations.vet_id = vets.id  WHERE vets.name = 'Maisy Smith' GROUP BY S  ORDER BY CNT  DESC LIMIT 1;
+
