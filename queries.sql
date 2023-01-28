@@ -191,5 +191,13 @@ LEFT JOIN specializations ON specializations.vet_id = visits.vet_id
 WHERE specializations.species_id IS NULL;
 
 --What specialty should Maisy Smith consider getting? Look for the species she gets the most.--
- SELECT species.name AS S, COUNT(*)  AS CNT FROM visits  JOIN vets ON visits.vet_id = vets.id  JOIN animals ON visits.animal_id = animals.id  JOIN species ON animals.species_id = species.id  JOIN specializations ON specializations.vet_id = vets.id  WHERE vets.name = 'Maisy Smith' GROUP BY S  ORDER BY CNT  DESC LIMIT 1;
+ SELECT species.name AS S, COUNT(*)  AS CNT 
+ FROM visits  
+ LEFT JOIN vets ON visits.vet_id = vets.id  
+ JOIN animals ON visits.animal_id = animals.id  
+ JOIN species ON animals.species_id = species.id  
+ JOIN specializations ON specializations.vet_id = vets.id  
+ WHERE vets.name = 'Maisy Smith' GROUP BY S  
+ ORDER BY CNT  
+ DESC LIMIT 1;
 
