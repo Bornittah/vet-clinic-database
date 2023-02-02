@@ -61,7 +61,7 @@ UPDATE animals SET owner_id = (SELECT id FROM owners WHERE  full_name = 'Melody 
 
 UPDATE animals SET owner_id = (SELECT id FROM owners WHERE  full_name = 'Dean Winchester') WHERE name IN ('Angemon', 'Boarmon');
 
- 
+
 INSERT INTO vets (name, age, date_of_graduation)
 VALUES
     ('William Tatcher', 45,'2000-04-23'),
@@ -110,7 +110,7 @@ SELECT animals.id, vets.id,'2021-02-02'
 FROM animals, vets
 WHERE animals.name = 'Gabumon'
 AND vets.name = 'Jack Harkness';
-    
+
 
 INSERT INTO visits (animal_id, vet_id, date_of_visit)
 SELECT animals.id,vets.id, '2020-01-05'
@@ -231,5 +231,11 @@ AND vets.name = 'William Tatcher';
 
 INSERT INTO visits (animal_id, vet_id, date_of_visit) SELECT * FROM (SELECT id FROM animals) animal_ids, (SELECT id FROM vets) vets_ids, generate_series('1980-01-01'::timestamp, '2021-01-01', '4 hours') visit_timestamp;
 
+
+insert into owners (full_name, email) select 'Owner ' || generate_series(1,2500000), 'owner_' || generate_series(1,2500000) || '@mail.com';
+
+
+
+INSERT INTO visits (animal_id, vet_id, date_of_visit) SELECT * FROM (SELECT id FROM animals) animal_ids, (SELECT id FROM vets) vets_ids, generate_series('1980-01-01'::timestamp, '2021-01-01', '4 hours') visit_timestamp;
 
 insert into owners (full_name, email) select 'Owner ' || generate_series(1,2500000), 'owner_' || generate_series(1,2500000) || '@mail.com';
